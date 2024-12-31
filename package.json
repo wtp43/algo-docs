@@ -1,0 +1,31 @@
+{
+  "name": "algodocs",
+  "version": "0.0.1",
+  "description": "algorithm docs",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wtp43/algo-docs.git"
+  },
+  "author": "Will Tang",
+  "license": "MIT",
+  "homepage": "https://github.com/wtp43/algo-docs#readme",
+  "dependencies": {
+    "next": "latest",
+    "nextra": "latest",
+    "nextra-theme-docs": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.10",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest"
+  }
+}
