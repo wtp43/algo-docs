@@ -4,31 +4,38 @@ created: 2023-01-31
 modified: 2024-12-30T22:18:57-05:00
 ---
 ## Dynamic Programming
->Dynamic Programming is an algorithmic paradigm that solves a given complex problem by breaking it into subproblems using recursion and storing the results of subproblems to avoid computing the same results again. For DP to work, the following properties must be true for the problem.
--   **Overlapping Subproblems** 
-	- A problem is said to have overlapping subproblems if the problem can be broken down into subproblems which are reused several times or a recursive algorithm for the problem solves the same subproblem over and over rather than always generating new subproblems.
-	- It's important to notice that only previous (`i-1`) requirements/decisions affect the answer for `i`.
-		- Decisions before that are already embodied in `dp[i-1]`. 
-	- Try to construct edges between adjacent different states 
-		- In other words, by taking 1 action (reducing/increasing search space 1, taking/not taking 1 element, partitioning 1 time), what can it transition to
--   **Optimal Substructure**
-	- A problem is said to have optimal substructure **if an optimal solution can be constructed from optimal solutions of its subproblems**.
-	- The decisions we make depends on previously made decisions, which is very typical of a problem involving subsequences.
 
-<CustomCallout type="note" title="note">Useful for subsequences or when there is no greedy solution. DP problems are essentially graph problems where the edges are not given to you.</CustomCallout>
+> Dynamic Programming is an algorithmic paradigm that solves a given complex problem by breaking it into subproblems using recursion and storing the results of subproblems to avoid computing the same results again. For DP to work, the following properties must be true for the problem.
+
+- **Overlapping Subproblems**
+  - A problem is said to have overlapping subproblems if the problem can be broken down into subproblems which are reused several times or a recursive algorithm for the problem solves the same subproblem over and over rather than always generating new subproblems.
+  - It's important to notice that only previous (`i-1`) requirements/decisions affect the answer for `i`.
+    - Decisions before that are already embodied in `dp[i-1]`.
+  - Try to construct edges between adjacent different states
+    - In other words, by taking 1 action (reducing/increasing search space 1, taking/not taking 1 element, partitioning 1 time), what can it transition to
+- **Optimal Substructure**
+  - A problem is said to have optimal substructure **if an optimal solution can be constructed from optimal solutions of its subproblems**.
+  - The decisions we make depends on previously made decisions, which is very typical of a problem involving subsequences.
+
+<CustomCallout type={"note"} title={"note"}>Useful for subsequences or when there is no greedy solution. DP problems are essentially graph problems where the edges are not given to you.</CustomCallout>
 
 ## Recognizing DP
+
 - A problem cannot be greedily solved if choosing an element affects the profit/reward of another element
-	- Ex: House Robber (taking $i^{th}$ element means you can't take the previous element)
-	- DFS: Given starting health, is there a path that ends with health > 0
-		- This is equivalent to finding the largest health path/min penalty path which isn't possible with just DFS
-		- DP is needed to store the least paths
-		- Dijkstra or DFS + DP
+  - Ex: House Robber (taking $i^{th}$ element means you can't take the previous element)
+  - DFS: Given starting health, is there a path that ends with health > 0
+    - This is equivalent to finding the largest health path/min penalty path which isn't possible with just DFS
+    - DP is needed to store the least paths
+    - Dijkstra or DFS + DP
 
 ## Problems where choice affects profit/reward of ANOTHER element
+
 ### DFS but with Path Values
+
 [3286. Find a Safe Walk Through a Grid](https://leetcode.com/problems/find-a-safe-walk-through-a-grid/)
+
 > Walk to bottom right with at least 1 health
+
 ```python
 def findSafeWalk(self, grid: List[List[int]], health: int) -> bool:
 	m = len(grid)
@@ -51,15 +58,18 @@ def findSafeWalk(self, grid: List[List[int]], health: int) -> bool:
 	return dp[-1][-1] > 0
 ```
 
-
-
 ## Efficient Iteration (Reducing Search Space and States)
+
 > Choosing the right input to iterate over can significantly reduce the search space.
+
 ### [Number of Ways to Wear Different Hats to Each Other](https://leetcode.com/problems/number-of-ways-to-wear-different-hats-to-each-other/)
->Given a list of preferred hats per person, count the number of ways each person is wearing a different preferred hat. 
+
+> Given a list of preferred hats per person, count the number of ways each person is wearing a different preferred hat.
+
 - There are 40 types of hats and at most 10 people.
 - hats = k, people = n
-	- O($k \cdot n \cdot 2 ^n$) vs O($k \cdot n\cdot 2^{k}$)
+  - O($k \\cdot n \\cdot 2 ^n$) vs O($k \\cdot n\\cdot 2^{k}$)
+
 ```python
 def numberWays(self, hats: List[List[int]]) -> int:
         @lru_cache(None)
@@ -84,17 +94,20 @@ def numberWays(self, hats: List[List[int]]) -> int:
                 hats_to_people[hat].append(i)
         return dp(0, 0)
 ```
-- Time complexity O($k \cdot n \cdot 2 ^n$): There are $k$ states for hat and $2^n$ states for mask. At each state, you have to iterate over all possible people for that hat for a max cost of 0($n$)
-- Space Complexity  O($k \cdot 2 ^n$): The total number of states
+
+- Time complexity O($k \\cdot n \\cdot 2 ^n$): There are $k$ states for hat and $2^n$ states for mask. At each state, you have to iterate over all possible people for that hat for a max cost of 0($n$)
+- Space Complexity O($k \\cdot 2 ^n$): The total number of states
 
 ## List of Common Problems
+
 > Problems for which Greedy don't work for. Build intuition by using good test cases.
+
 - 0-1 Knapsack
 - Subset Sum
 - Longest Increasing Subsequence
 - Minimum Set/Vertex Cover
-	- Test case `[0-3, 1-6, 4-7]`
-	- Greedy would take `1-6` first resulting in a suboptimal covering
+  - Test case `[0-3, 1-6, 4-7]`
+  - Greedy would take `1-6` first resulting in a suboptimal covering
 - Counting all possible paths from top left to bottom right corner of a matrix
 - Longest Common Subsequence
 - Longest Path in a Directed Acyclic Graph (DAG)
@@ -113,23 +126,30 @@ def numberWays(self, hats: List[List[int]]) -> int:
 - Kadane's Algorithm
 
 ## Top Down vs Bottom Up
-- Key distinction: top down traversal is always the reverse of bottom up, and vice versa. 
+
+- Key distinction: top down traversal is always the reverse of bottom up, and vice versa.
 
 ## Optimization (State Reduction)
+
 - Notice when it's not needed to generate all combinations
-	- Generation of all combinations is generally needed if it is required to count all the possible partitions
+  - Generation of all combinations is generally needed if it is required to count all the possible partitions
+
 ### Examples
+
 #### Omit all combinations when unneeded
+
 - Finding the max of all combinations (generation of all combinations is thus not needed)
-	- We want to find the largest x such that `x = sum(set1) + sum(set2)` Instead of storing all combinations `(sum1, sum2)`, we can instead store the `diff = sum1 - sum2`
-	- States are reduced from Exponential -> Polynomial
+  - We want to find the largest x such that `x = sum(set1) + sum(set2)` Instead of storing all combinations `(sum1, sum2)`, we can instead store the `diff = sum1 - sum2`
+  - States are reduced from Exponential -> Polynomial
+
 #### Traversing duplicate states
-- For DP, not backtracking, we generally only need to traverse on the suffix/prefix 
 
+- For DP, not backtracking, we generally only need to traverse on the suffix/prefix
 
-## Fibonacci 
+## Fibonacci
 
 ### Maximum Total Damage With Spell Casting
+
 > Find max profit given i-2, i-1, i+1, i+2 cannot be taken if i is taken
 
 ```python
@@ -149,10 +169,13 @@ def maximumTotalDamage(self, power: List[int]) -> int:
 ```
 
 ## Matrix Path
+
 ## General Techniques
 
 ### Store Sequence in DP
+
 [Count Number of x < y < z Sequences](https://leetcode.com/problems/count-number-of-teams/)
+
 ```python
 def numTeams(self, rating: List[int]) -> int:
         n = len(rating)
@@ -173,17 +196,18 @@ def numTeams(self, rating: List[int]) -> int:
             teams += increasing_teams[i][3] 
         return teams
 ```
+
 ### 
+
 ## Maximal Square
 
-
 ## Maximal Rectangle
-
 
 ## Prefix Sum + DP
 
 ### [Maximum Number of Non-Overlapping Subarrays With Sum Equals Target](https://leetcode.com/problems/maximum-number-of-non-overlapping-subarrays-with-sum-equals-target/)
-- Store dictionary of keys: (prefix sum, index) 
+
+- Store dictionary of keys: (prefix sum, index)
 
 ```python
 def maxNonOverlapping(self, nums: List[int], target: int) -> int:
@@ -203,9 +227,11 @@ def maxNonOverlapping(self, nums: List[int], target: int) -> int:
 ```
 
 ## Subsequences
+
 > Generally uses hash map to save previously seen sequences with 'x' property
 
 ### Longest Increasing Subsequence (LIS)
+
 - DP: 0($n^2$)
 - Approach 1: Build LIS
 - Approach 2: Binary search for first position cur num is smaller than `sequence[i]`
@@ -256,16 +282,17 @@ def longestPalindromeSubseq(self, s: str) -> int:
 ```
 
 ### [Length of the Longest Subsequence That Sums to Target](https://leetcode.com/problems/length-of-the-longest-subsequence-that-sums-to-target/)
+
 - Similar to coin change problem
 - Base case: sum 0 has subsequence length 0
 - Iterate over nums, update dp for num to target
 - **We iterate in reverse while updating the longest subsequence to avoid using the same num twice. This works because the recurrence relation: smaller sequences do not depend on larger sequences**
-	- This is important because we are using 1-D dp, we don't need to iterate in reverse if we store the results in `dp[i][j] = max(dp[i][j], dp[i-1][j-num]+1)` where $i$ represents the results using only the first $i$ nums 
-	- Example of when iterating in ascending order would fail for 1-D dp
-		- nums = `[4, 2]`, target = 4
-		- first loop, dp = `[0,0,0,0,1]`
-		- second loop, dp = `[0,0,1,0,2]`,  `dp[2]` is updated first to be 1, then `dp[4]` is updated using `dp[2]`
-		- Iterating in reverse would prevent overwriting the results of the previous loop
+  - This is important because we are using 1-D dp, we don't need to iterate in reverse if we store the results in `dp[i][j] = max(dp[i][j], dp[i-1][j-num]+1)` where $i$ represents the results using only the first $i$ nums
+  - Example of when iterating in ascending order would fail for 1-D dp
+    - nums = `[4, 2]`, target = 4
+    - first loop, dp = `[0,0,0,0,1]`
+    - second loop, dp = `[0,0,1,0,2]`, `dp[2]` is updated first to be 1, then `dp[4]` is updated using `dp[2]`
+    - Iterating in reverse would prevent overwriting the results of the previous loop
 
 ```python
 def lengthOfLongestSubsequence(self, nums: List[int], target: int) -> int:
@@ -293,7 +320,9 @@ def coinChange(self, coins: List[int], amount: int) -> int:
 ```
 
 ### [Longest Arithmetic Subsequence](https://leetcode.com/problems/longest-arithmetic-subsequence/)
+
 - hash map of longest sequences at i with sequence diff
+
 ```python
 def longestArithSeqLength(self, nums: List[int]) -> int:
         dp = defaultdict(lambda:1)
@@ -307,6 +336,7 @@ def longestArithSeqLength(self, nums: List[int]) -> int:
 ```
 
 ### [Find the Maximum Length of Valid Subsequence II](https://leetcode.com/problems/find-the-maximum-length-of-valid-subsequence-ii/)
+
 ```python
 def maximumLength(self, nums: List[int], k: int) -> int:
 	# dp['k' for current sequence][mod of last element in sequence]
@@ -321,11 +351,15 @@ def maximumLength(self, nums: List[int], k: int) -> int:
 			res = max(dp[seqk][rem], res)
 	return res
 ```
+
 ## 0/1 Knapsack
 
 ### Maximum Number of Achievable Transfer Requests
+
 https://leetcode.com/problems/maximum-number-of-achievable-transfer-requests/description/
+
 - Note: Tuples are hashable in python, lists are not
+
 ```python
 def maximumRequests(self, n: int, requests: List[List[int]]) -> int:
         @lru_cache(None)
@@ -342,11 +376,13 @@ def maximumRequests(self, n: int, requests: List[List[int]]) -> int:
 ```
 
 ### Number of Ways to Achieve At Least K
+
 https://leetcode.com/problems/profitable-schemes/
- - Optimization (reduce states): use `min(minProfit, p + profit[i])` instead of `p + profit[i]` to reduce states
-	 - suppose the current profit is greater than minProfit
-	 - then the number of ways is the same for `dfs(i, mem, p)` and `dfs(i, mem, p+1)`
-	 - By reducing the states, we can use more memoized results
+
+- Optimization (reduce states): use `min(minProfit, p + profit[i])` instead of `p + profit[i]` to reduce states
+  - suppose the current profit is greater than minProfit
+  - then the number of ways is the same for `dfs(i, mem, p)` and `dfs(i, mem, p+1)`
+  - By reducing the states, we can use more memoized results
 
 ```python
 def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: List[int]) -> int:
@@ -362,9 +398,12 @@ def profitableSchemes(self, n: int, minProfit: int, group: List[int], profit: Li
         return dfs(0,n, 0)
 ```
 
-###  Number of Beautiful Partitions
+### Number of Beautiful Partitions
+
 https://leetcode.com/problems/number-of-beautiful-partitions/description/
+
 - Count the number of valid (k partition combinations) of s
+
 ```python
 def beautifulPartitions(self, s: str, k: int, minLength: int) -> int:
 	m = 10**9+7
@@ -387,14 +426,19 @@ def beautifulPartitions(self, s: str, k: int, minLength: int) -> int:
 		
 	return dfs(minLength, k-1)
 ```
-- Time complexity: O($n\cdot k$)
-	- For every index i of s, we check with partitions made, 0..k
+
+- Time complexity: O($n\\cdot k$)
+  - For every index i of s, we check with partitions made, 0..k
 - Notice that it isn't needed to traverse an extra (n steps) for the current state
+
 ```python
 for j in range(i+minLength-1, len(s)):
 ```
+
 ## Largest Subset
+
 ### Largest Divisible Subset
+
 https://leetcode.com/problems/largest-divisible-subset/
 
 ```python
@@ -440,20 +484,21 @@ def largestDivisibleSubset(self, nums: List[int]) -> List[int]:
 
 ### Best Time to Buy and Sell Stock
 
+## Bitmask DP
 
-## Bitmask DP 
 - Space optimization for subset
+
 ### Minimum Vertex Cover/[Smallest Sufficient Team](https://leetcode.com/problems/smallest-sufficient-team/)
 
 - Optimization: Remove all inputs that are subsets of another
 
 ### [Find Minimum Time to Finish All Jobs](https://leetcode.com/problems/find-minimum-time-to-finish-all-jobs/)
 
+### Maximum Total Reward
 
-
-### Maximum Total Reward 
 > Take any untaken reward as long as it is less than your current reward. You start with reward = 0
-https://leetcode.com/problems/maximum-total-reward-using-operations-ii/
+> https://leetcode.com/problems/maximum-total-reward-using-operations-ii/
+
 - Use bit mask to indicate which number is taken
 - binary 1001 means 3 and 1 are taken
 
@@ -479,8 +524,10 @@ def maxTotalReward(self, rewardValues: List[int]) -> int:
 ```
 
 ### Distinct Subsequences
+
 - Store number of words that end with the current letter
--  recurrence relation: `f(s) = f(s[:n-1])*2+1 - freq[s[n-1]]`
+- recurrence relation: `f(s) = f(s[:n-1])*2+1 - freq[s[n-1]]`
+
 ```python
 def distinctSubseqII(self, s: str) -> int:
         # recurrence relation: f(s) = f(s[:n-1])-freq[s[n-1]] * 2+ 1
@@ -497,13 +544,15 @@ def distinctSubseqII(self, s: str) -> int:
         return res 
 ```
 
-
-
 ## Partitioning
+
 > Outer loop: Iterate for all lengths. Inner loop: Partition once for all possible partition indices
+
 - In top down recursive solutions, it's a given that the smaller partitions (subproblems) are calculated first
-- Make sure that bottom up solutions also calculate smaller subproblems first 
+- Make sure that bottom up solutions also calculate smaller subproblems first
+
 ### Rod Cutting
+
 > Given some lengths of rods and their respective prices, find the maximum profit that can be obtained by cutting a given rod any amount of times
 
 ```python
@@ -516,7 +565,9 @@ def rodcutting(n, prices):
 			dp[i] = max(dp[i], prices[j]+prices[i-j])
 	return dp[n]
 ```
+
 ### [Partition Array for Maximum Sum](https://leetcode.com/problems/partition-array-for-maximum-sum/)
+
 ```python
 def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
 	n = len(arr)
@@ -533,9 +584,12 @@ def maxSumAfterPartitioning(self, arr: List[int], k: int) -> int:
 ```
 
 ### Largest Sum of Averages for at Most K Partitions
+
 https://leetcode.com/problems/largest-sum-of-averages/description/
-- Mediant property of fractions means we want to partition as much as possible since average <= sum 
+
+- Mediant property of fractions means we want to partition as much as possible since average \<= sum
 - Try every index except 0 as a partition
+
 ```python
 def largestSumOfAverages(self, nums: List[int], k: int) -> float:
         dp = {}
@@ -560,6 +614,7 @@ def largestSumOfAverages(self, nums: List[int], k: int) -> float:
 ```
 
 ### [Minimum Cost to Cut a Stick](https://leetcode.com/problems/minimum-cost-to-cut-a-stick/)
+
 > The cost to partition at the $i^{th}$ cut is the current length of the stick
 
 ```python
@@ -599,8 +654,11 @@ def minCost(self, n: int, cuts: List[int]) -> int:
 ```
 
 ### Restore The Array
+
 https://leetcode.com/problems/restore-the-array/description/?envType=study-plan-v2&envId=dynamic-programming-grandmaster
+
 - Return the number of possible partitions of s such that each partition of s is less than k
+
 ```python
 def numberOfArrays(self, s: str, k: int) -> int:
         n = len(s)
@@ -616,11 +674,14 @@ def numberOfArrays(self, s: str, k: int) -> int:
 ```
 
 ### Handshakes That Don't Cross
+
 https://leetcode.com/problems/handshakes-that-dont-cross/
+
 - 2n people stand in a circle
 - How many ways can n handshakes occur such that none cross
-	- The current person can only shake hands with someone if there is an even amount of people between them
+  - The current person can only shake hands with someone if there is an even amount of people between them
 - Choose two people to be the split between the left and right side
+
 ```python
 def numberOfWays(self, numPeople: int) -> int:
         n = numPeople//2
@@ -637,16 +698,21 @@ def numberOfWays(self, numPeople: int) -> int:
 
 ```
 
-## Meet in the Middle 
+## Meet in the Middle
+
 - Divide search space into two halves (not recursive)
 - Use hash maps to store differences of all combinations
+
 ### Maximum Sum of 2 Equal Sum Subsets
+
 https://leetcode.com/problems/tallest-billboard/description
+
 - Brute force: Keep the states -> i = current element to consider, x = sum of set 1, y = sum of set 2
-	- where initially, x = 0 and y = sum(nums) 
-	- transitions: don't take (remove from y), add to x, keep it in y
-	- Time complexity O($3^n$)
+  - where initially, x = 0 and y = sum(nums)
+  - transitions: don't take (remove from y), add to x, keep it in y
+  - Time complexity O($3^n$)
 - Brute force optimization (reducing states to utilize memoization): Instead of keeping state of set1 and set2, use the diff instead
+
 ```python
 def tallestBillboard(self, rods: List[int]) -> int:
 	@lru_cache(None)
@@ -656,8 +722,10 @@ def tallestBillboard(self, rods: List[int]) -> int:
 		return max(dfs(i+1, diff), rods[i] + dfs(i+1, diff + rods[i]), rods[i]+ dfs(i+1, diff-rods[i]))
 	return dfs(0, 0)//2
 ```
-#### Reduction to O($3^n$) to  2$\cdot$O($3^\frac{n}{2}$) with Divide and Conquer$^*$
-- Split array into 2 halves 
+
+#### Reduction to O($3^n$) to 2$\\cdot$O($3^\\frac{n}{2}$) with Divide and Conquer$^\*$
+
+- Split array into 2 halves
 - Generate all combinations of the two sets for each half separately (non recursive)
 - Transitions: don't take, take for x, take for y
 - State: Use `diff = left - right` as keys to store the sum of either the left or right subset (used to rebuild the max sum)
@@ -689,11 +757,12 @@ def tallestBillboard(self, rods: List[int]) -> int:
 ```
 
 #### Reduce to 0($n^2$), Combinations to DP
-<CustomCallout type="tip" title="tip">Notice that since we are looking for the max sum and not the count of all partitions, we don't need to generate/keep track of all combinations</CustomCallout>
+
+<CustomCallout type={"tip"} title={"tip"}>Notice that since we are looking for the max sum and not the count of all partitions, we don't need to generate/keep track of all combinations</CustomCallout>
 
 - Save the higher sum of the two subsets in a dictionary with `diff = taller - shorter` as the keys
 - Store results in a copy of the current dictionary for each iteration to avoid overwriting previous results
-	- This also guarantees that results not involving the current rod are also still considered
+  - This also guarantees that results not involving the current rod are also still considered
 
 ```python
 def tallestBillboard(self, rods: List[int]) -> int:
@@ -720,10 +789,10 @@ def tallestBillboard(self, rods: List[int]) -> int:
 
 ## 2-D
 
-
-
 ## Floyd-Warshall: Shortest Paths between All Pairs
+
 - Given n edges, relax each edge n times
+
 ```python
 def floyd(G):
     dis = [[math.inf] * n for _ in range(n)]
@@ -738,25 +807,27 @@ def floyd(G):
 	return dis
 ```
 
-
 ## Submask Enumeration
 
 ### Iterating through all masks $m$ with their submasks $s$ O(3^n)$
-- For the $i^{th}$ bit, there are 3 options:
-	1. Not in mask $m$ and therefore not in submask $s$
-	2. It is included in $m$ but not in $s$
-	3. Only in $s$
 
+- For the $i^{th}$ bit, there are 3 options:
+  1. Not in mask $m$ and therefore not in submask $s$
+  1. It is included in $m$ but not in $s$
+  1. Only in $s$
 
 ## Reducing Time Complexity
+
 ### Memoization
+
 https://stackoverflow.com/questions/21273505/memoization-algorithm-time-complexity
+
 - Can reduce complexity to polynomial time
-- Ex: Word Break Problem 
-	- Use of **memoization** reduces worst case time complexity to O($n^2$) since `SegmentString` is only called on suffixes of the original input string, and that there are only O(n) suffixes
+- Ex: Word Break Problem
+  - Use of **memoization** reduces worst case time complexity to O($n^2$) since `SegmentString` is only called on suffixes of the original input string, and that there are only O(n) suffixes
 
 ## Hungarian Assignment
 
-https://leetcode.com/problems/minimum-moves-to-spread-stones-over-grid/solutions/4024777/python-hungarian-assignment-10-lines-o-n-3-beats-100/?envType=company&envId=tiktok&favoriteSlug=tiktok-thirty-days
-- 
-## [[LC-174. Dungeon Game]]
+## https://leetcode.com/problems/minimum-moves-to-spread-stones-over-grid/solutions/4024777/python-hungarian-assignment-10-lines-o-n-3-beats-100/?envType=company&envId=tiktok&favoriteSlug=tiktok-thirty-days
+
+## \[[LC-174. Dungeon Game]\]

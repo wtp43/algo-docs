@@ -2,12 +2,15 @@
 modified: 2024-12-30T22:27:30-05:00
 ---
 ## Unoptimized
+
 ```python
 stack = []
 new_min = new_elem if not stack else min(new_elem, stack[-1][1])
 stack.append([new_elem, new_min])
 ```
+
 ## Optimized
+
 - Use second stack
 
 ```python

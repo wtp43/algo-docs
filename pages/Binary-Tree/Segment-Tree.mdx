@@ -2,28 +2,37 @@
 modified: 2024-12-30T22:18:28-05:00
 ---
 # Segment Tree
+
 > Allows answering range queries over an array efficiently
+
 - Tree with nodes storing information about array intervals
-## 2D Segment Tree 
+
+## 2D Segment Tree
+
 - Leaf nodes or leaf vertices have range = 1
 - Since there are n leaf nodes, the tree will require $2^{n+1}$ nodes
-- We pad the number of nodes to $2^{\text{floor}({log_2{n})}+2}$ to make a complete binary tree
+- We pad the number of nodes to $2^{\\text{floor}({log_2{n})}+2}$ to make a complete binary tree
 - This prevents hard to query trees like the ones below
- 
+
 ### Construction
+
 1. Start at leaf vertices
-2. Compute values of previous level using `merge` function
-3. Repeat `merge`
+1. Compute values of previous level using `merge` function
+1. Repeat `merge`
 
 ### Sum Queries
+
 > Compute sum of the segment `a[l..r]` in O(log$n$)
 
 ### Update Queries
+
 - Each level of a segment Tree
 
 ## Python Implementation
+
 - 1 indexed, root is at v=1, left child at = $v*2$, right child at = $v*2+1$
-- 
+-
+
 ```python
 class SegmentTree:
 
@@ -68,9 +77,11 @@ class SegmentTree:
 ```
 
 ## More Complex Queries
+
 ### Finding the Maximum
 
 ### Finding the Maximum and the Number of Times it Appears
 
 ## References
+
 https://cp-algorithms.com/data_structures/segment_tree.html

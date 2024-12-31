@@ -4,25 +4,23 @@ created: 2022-12-10
 modified: 2024-12-30T22:23:20-05:00
 ---
 # Topological Sort
+
 - Sort the graph in an ord/er such that no vertex appears before another vertex that has an edge to it.
 - The ordering does not have to be unique
 
 ## Topological Sort Using DFS
+
 - Post-Order Traversal
 
- **Run DFS on an entire graph and add each node to the global ordering of nodes, but only after all of a node's children are visited**. This ensures that parent nodes will be ordered before their child nodes, and honors the forward direction of edges in the ordering. 
+**Run DFS on an entire graph and add each node to the global ordering of nodes, but only after all of a node's children are visited**. This ensures that parent nodes will be ordered before their child nodes, and honors the forward direction of edges in the ordering.
 
 - Orders the vertices on a line such that all directed edges go from left to right
 - Such an ordering cannot exist if the graph contains a directed cycle
-- Each [[Graph Theory#Directed Acyclic Graphs (DAG)|DAG]] has at least one topological sort, they are not unique
+- Each \[[Graph Theory#Directed Acyclic Graphs (DAG)|DAG]\] has at least one topological sort, they are not unique
 
-<CustomCallout type="example" title="example"></CustomCallout>
-![Pasted-image-20230106154005.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20230106154005-f2b963c628667e25416af2a6a712837b.png)
-![Pasted-image-20230106154013.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20230106154013-5870dd7b5a83c14af1964ead2468999b.png)
+<CustomCallout type={"example"} title={"example"}>![Pasted-image-20230106154005.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20230106154005-f2b963c628667e25416af2a6a712837b.png)![Pasted-image-20230106154013.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20230106154013-5870dd7b5a83c14af1964ead2468999b.png)</CustomCallout>
 
-
-
-<CustomCallout type="Purpose" title="Purpose">Gives an ordering where each vertex can be processed before it's successors. This allows us to seek the shortest/longest path from x to y in a DAG</CustomCallout>
+<CustomCallout type={"Purpose"} title={"Purpose"}>Gives an ordering where each vertex can be processed before it's successors. This allows us to seek the shortest/longest path from x to y in a DAG</CustomCallout>
 
 # DFS Implementation
 
@@ -69,10 +67,11 @@ def dfs_topsort(self, graph, node, vis, ordering):
 - Space Complexity: O(depth)
 
 ## Kahn's Topological Sort Algorithm
+
 Find vertices with no incoming edges and removing all outgoing edges from these vertices.
 
 Maintain in-degree information of all graph vertices.
-Removing an edge from u to v will decrement ``indegree[u]`` by 1.
+Removing an edge from u to v will decrement `indegree[u]` by 1.
 
 If a cycle exists, then not all vertices will be able to achieve an indegree of 0. If the top_order does not have a length of n, then we must have encountered a cycle.
 
@@ -102,7 +101,9 @@ def topsort(edges, n):
 	return top_order
 
 ```
+
 ## Applications
+
 > Use topological sort when there is a dependency on the edges
 
 ### DAG Scheduling
@@ -144,12 +145,14 @@ class Solution:
 - Without the requirement `k`, this would be a topological problem
 - Why do we need DP? There is no optimal subproblem on which course should be taken first.
 
-[[LC-207. Course Schedule]]
-[[LC-210. Course Schedule II]]
+\[[LC-207. Course Schedule]\]
+\[[LC-210. Course Schedule II]\]
 
 ### [All Ancestors of a Node in a Directed Acyclic Graph](https://leetcode.com/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/)
+
 - To guarantee sorted order of ancestors (without sorting the answer), iterate in sorted order
 - Skip the next node if it has already been visited before
+
 ```python
 def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:          
 	graph = [[]for _ in range(n)]
@@ -171,7 +174,9 @@ def getAncestors(self, n: int, edges: List[List[int]]) -> List[List[int]]:
 ```
 
 ### Scheduling
-####  [Find All Possible Recipes from Given Supplies](https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/)
+
+#### [Find All Possible Recipes from Given Supplies](https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/)
+
 ```python
 def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], supplies: List[str]) -> List[str]:
 	available = set(supplies)
@@ -195,5 +200,7 @@ def findAllRecipes(self, recipes: List[str], ingredients: List[List[str]], suppl
 
 
 ```
+
 ## Related
-[Floyd-s-Cycle-Detection-Algorith](/Graphs/Floyd-s-Cycle-Detection-Algorithm.mdx)
+
+- \[[Cycle Detection]\]

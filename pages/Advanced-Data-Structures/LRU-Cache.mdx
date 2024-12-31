@@ -4,11 +4,14 @@ created: 2022-12-16
 modified: 2024-12-30T22:52:05-05:00
 ---
 # LRU Cache
+
 Least recently used (LRU) cache. Discard the least recently used items first from the cache to make room for new elements when cache is full.
 
-Retrieving data from a computer's memory is an expensive task. 
+Retrieving data from a computer's memory is an expensive task.
 High-speed memory known as cache memory is used to avoid accessing data from memory repeatedly.
+
 ## Operations
+
 - LRUCache(int Capacity): Initialize LRU Cache with positive size capacity
 - get(key): Return value of key if it exists
 - put(key, val): Update value of key if exists, otherwise add key-value pair to cache. If number of keys exceeds the capacity of LRU cache, evict the least recently used key.
@@ -18,6 +21,7 @@ Time required to get least recently used element is O(1).
 Space required is O(n).
 
 # Brute force: Using a simple array or linked list
+
 Initialize an array of size equal to that of our cache. Each data element stores extra information (timestamp). Use timestamp to find the least recently used element in the LRU cache. Set the time-stamp of the most recently used element to 0. If we insert an item, increment the timestamp of all existing data by 1. Insert the new element with timestamp 0.
 
 ```python
@@ -29,7 +33,8 @@ class DataElement:
 		self.time_stamp = datetime.now
 	
 ```
- Time Complexity O(n)
+
+Time Complexity O(n)
 
 # Implementation Using Hash map and Doubly Linked List
 
@@ -83,11 +88,10 @@ class LRUCache:
 
 ## Optimized Complexity
 
-<CustomCallout type="Time-Complexity" title="Time Complexity">Lookup: O(1)</CustomCallout>
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}>Lookup: O(1)</CustomCallout>
 
-<CustomCallout type="Space-Complexity" title="Space Complexity">O(n)</CustomCallout>
-
-
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}>O(n)</CustomCallout>
 
 # Related
-[LFU-Cache](/Advanced-Data-Structures/LFU-Cache.mdx)
+
+\[[LFU Cache]\]

@@ -3,7 +3,8 @@ modified: 2024-12-30T22:27:28-05:00
 ---
 - Keeps track of the minimum value so far but works like a queue
 
-## Using Two Stacks 
+## Using Two Stacks
+
 - Worst case pop operation is O(n)
 - Keep inbox and outbox
 - Append inbox in reverse to outbox if outbox is empty
@@ -36,6 +37,5 @@ class min_queue:
 				self.outbox.append([x, min_x])
 		return self.outbox.pop()
 ```
-
 
 ## Using Double Ended Queue

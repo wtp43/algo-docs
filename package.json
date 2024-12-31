@@ -15,11 +15,14 @@
   "license": "MIT",
   "homepage": "https://github.com/wtp43/algo-docs#readme",
   "dependencies": {
+    "markdown-to-jsx": "^7.7.2",
     "next": "latest",
     "nextra": "latest",
     "nextra-theme-docs": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "remark": "^15.0.1",
+    "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "18.11.10",

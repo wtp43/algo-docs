@@ -1,11 +1,14 @@
 ---
 title: 0 1 Knapsack
 created: 2023-02-01
-modified: 2024-12-30T22:18:47-05:00
+modified: 2024-12-31T03:20:10-05:00
 ---
 # Description
+
 Given the weights and profits of ‘N’ items, we are asked to put these items in a knapsack that has a capacity ‘C’. The goal is to get the maximum profit from the items in the knapsack. Each item can only be selected once, as we don’t have multiple quantities of any item.
+
 # Brute Force
+
 ```python
 def knapSack(W, wt, val, n):
  
@@ -37,16 +40,20 @@ if __name__ == '__main__':
     print knapSack(W, weight, profit, n)
  
 ```
-# Intuition
-Greedy algorithm only works for fractional knapsack. DP needed for 0-1 knapsack
-How is the profit determined? Are there constraints made on which items can be taken? ([[LC-2008. Maximum Earnings From Taxi]])
 
-<CustomCallout type="danger" title="danger"></CustomCallout>
+# Intuition
+
+Greedy algorithm only works for fractional knapsack. DP needed for 0-1 knapsack
+How is the profit determined? Are there constraints made on which items can be taken? (\[[LC-2008. Maximum Earnings From Taxi]\])
+
+<CustomCallout type={"danger"} title={"danger"}></CustomCallout>
 
 # Bottom-Up Implementation
+
 `dp[i][c]` will represent the maximum knapsack profit for capacity ‘c’ calculated from the first ‘i’ items
 
 Recurrence relation:
+
 - `dp[i][c] = max (dp[i-1][c], profits[i] + dp[i-1][c-weights[i]])`
 - We can either take or exclude the current item
 
@@ -90,7 +97,7 @@ def main():
 main()
 ```
 
-<CustomCallout type="example" title="example"></CustomCallout>
+<CustomCallout type={"example"} title={"example"}></CustomCallout>
 
 # How to find the selected items?
 
@@ -100,18 +107,15 @@ As you remember, at every step, we had two options: include an item or skip it. 
 
 Let’s understand this from the above example:
 
-![widget](https://www.educative.io/api/collection/5668639101419520/5633779737559040/page/5666387129270272/image/5696910388101120?page_type=collection_lesson)
+- ‘22’ did not come from the top cell (which is 17); hence we must include the item at index ‘3’ (which is the item ‘D’).
+- Subtract the profit of item ‘D’ from ‘22’ to get the remaining profit ‘6’. We then jump to profit ‘6’ on the same row.
+- ‘6’ came from the top cell, so we jump to row ‘2’.
+- Again, ‘6’ came from the top cell, so we jump to row ‘1’.
+- ‘6’ is different than the top cell, so we must include this item (which is item ‘B’).
+- Subtract the profit of ‘B’ from ‘6’ to get the profit ‘0’. We then jump to profit ‘0’ on the same row. As soon as we hit zero remaining profit, we can finish our item search.
+- So items going into the knapsack are B and D.
 
-1.  ‘22’ did not come from the top cell (which is 17); hence we must include the item at index ‘3’ (which is the item ‘D’).
-2.  Subtract the profit of item ‘D’ from ‘22’ to get the remaining profit ‘6’. We then jump to profit ‘6’ on the same row.
-3.  ‘6’ came from the top cell, so we jump to row ‘2’.
-4.  Again, ‘6’ came from the top cell, so we jump to row ‘1’.
-5.  ‘6’ is different than the top cell, so we must include this item (which is item ‘B’).
-6.  Subtract the profit of ‘B’ from ‘6’ to get the profit ‘0’. We then jump to profit ‘0’ on the same row. As soon as we hit zero remaining profit, we can finish our item search.
-7.  So items going into the knapsack are {B, D}.
-
-
-<CustomCallout type="important" title="important">If we included the current item i, then our weight cannot be equal to `dp[i-1][capacity]`.Otherwise, we excluded the current item and its weight is equal to `dp[i-1][capacity]`. </CustomCallout>
+<CustomCallout type={"important"} title={"important"}>If we included the current item i, then our weight cannot be equal to `dp[i-1][capacity]`.Otherwise, we excluded the current item and its weight is equal to `dp[i-1][capacity]`.</CustomCallout>
 
 ```python
 def print_selected_elements(dp, weights, profits, capacity):
@@ -167,16 +171,19 @@ def solve_knapsack(profits, weights, capacity):
 ```
 
 return `dp[(n-1)%2][capacity]`
-- Consider the case when we only need 1 row. Then the answer is stored in row 0. 
-- When there are 2 rows, then the answer is stored in row 1. 
+
+- Consider the case when we only need 1 row. Then the answer is stored in row 0.
+- When there are 2 rows, then the answer is stored in row 1.
 - Thus, (n-1)%2
 
 ## Using a single row
-- We have to iterate backwards inside the inner loop 
+
+- We have to iterate backwards inside the inner loop
 
 # Sorting weights does not optimize
-- We need to check all subsets or we may stop prematurely without testing the pair such as (min, max). 
+
+- We need to check all subsets or we may stop prematurely without testing the pair such as (min, max).
 
 # Related
-https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/RM1BDv71V60
 
+https://www.educative.io/courses/grokking-dynamic-programming-patterns-for-coding-interviews/RM1BDv71V60

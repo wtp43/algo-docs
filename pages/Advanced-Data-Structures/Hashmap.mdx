@@ -1,7 +1,7 @@
 ---
 title: Hashmaps
 created: 2022-12-10
-modified: 2024-12-30T22:51:50-05:00
+modified: 2024-12-30T23:34:38-05:00
 ---
 # Hashmap
 
@@ -15,28 +15,28 @@ modified: 2024-12-30T22:51:50-05:00
 
 ## Optimized Complexity
 
-<CustomCallout type="Time-Complexity" title="Time Complexity"></CustomCallout>
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}></CustomCallout>
 
-<CustomCallout type="Space-Complexity" title="Space Complexity"></CustomCallout>
-
-
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}></CustomCallout>
 
 # Related
 
-
 # Hashmap
+
 - Note that a hash table is slightly different than a hash map. A hash table is a structure for storing arbitrary data not necessarily consisting of a separate key and value. A hashmap is a particular type of hashtable which has distinct keys and values
 
 ## Load Factor
-$\alpha$ = # of (key/value) pairs / Size of Hash Table
 
-## Why should we choose $m$ to be a prime number as the modulo of the hash value? 
-Consider the set of keys 𝐾={0,1,...,100}K={0,1,...,100} and a hash table where the number of buckets is 𝑚=12m=12. Since 33 is a factor of 1212, the keys that are multiples of 33 will be hashed to buckets that are multiples of 33:
+$\\alpha$ = # of (key/value) pairs / Size of Hash Table
 
--   Keys {0,12,24,36,...}{0,12,24,36,...} will be hashed to bucket 00.
--   Keys {3,15,27,39,...}{3,15,27,39,...} will be hashed to bucket 33.
--   Keys {6,18,30,42,...}{6,18,30,42,...} will be hashed to bucket 66.
--   Keys {9,21,33,45,...}{9,21,33,45,...} will be hashed to bucket 99.
+## Why should we choose $m$ to be a prime number as the modulo of the hash value?
+
+Consider the set of keys 𝐾=`{0,1,...,100}` and a hash table where the number of buckets is 𝑚=12m=12. Since 33 is a factor of 1212, the keys that are multiples of 33 will be hashed to buckets that are multiples of 33:
+
+- Keys `{0,12,24,36,...}` will be hashed to bucket 00.
+- Keys `{3,15,27,39,...}` will be hashed to bucket 33.
+- Keys `{6,18,30,42,...}` will be hashed to bucket 66.
+- Keys `{9,21,33,45,...}` will be hashed to bucket 99.
 
 If 𝐾K is uniformly distributed (i.e., every key in 𝐾K is equally likely to occur), then the choice of 𝑚m is not so critical. But, what happens if 𝐾K is not uniformly distributed? Imagine that the keys that are most likely to occur are the multiples of 33. In this case, all of the buckets that are not multiples of 33 will be empty with high probability (which is really bad in terms of hash table performance).
 
@@ -49,36 +49,57 @@ In general:
 Therefore, to minimize collisions, it is important to reduce the number of common factors between 𝑚 and the elements of 𝐾. How can this be achieved? By choosing 𝑚m to be a number that has very few factors: a **prime number**.
 
 Reference: https://cs.stackexchange.com/questions/11029/why-is-it-best-to-use-a-prime-number-as-a-mod-in-a-hashing-function
+
 # Collision Resolution
-## Separate Chaining: 
+
+## Separate Chaining:
+
 - Common data structures used to implement chaining include: linked list, arrays, binary trees, self balancing trees, etc
 - Disadvantage is that a lot of memory used to build linked lists could have just been to increase the table size
-<CustomCallout type="question" title="question">**How do you maintain O(1) insertion and lookup time complexity once the hashmap gets really full and linked list chains are long?** Sol: Create new hashmap with larger capacitiy and rehash all the items inside the old hashmap </CustomCallout>
 
+<CustomCallout type={"question"} title={"question"}>**How do you maintain O(1) insertion and lookup time complexity once the hashmap gets really full and linked list chains are long?**</CustomCallout>
+>
+> Sol: Create new hashmap with larger capacitiy and rehash all the items inside the old hashmap
 
 ## Open Addressing
-- If cell is occupied, use **************************sequential probing************************** to find next available cell
+
+- If cell is occupied, use sequential probing to find next available cell
 - Searching for an item no requires additional checking
 - Deletion requires reinsertion of all items after the hole
-- The O(1) constant time behaviour attributed to hash tables assumes the load factor ($\alpha$) is kept below a certain fixed value. This means once $\alpha$ > threshold, we need to grow the table size (ideally exponentially, e.g. double)
+- The O(1) constant time behaviour attributed to hash tables assumes the load factor ($\\alpha$) is kept below a certain fixed value. This means once $\\alpha$ > threshold, we need to grow the table size (ideally exponentially, e.g. double)
+
 ### Linear Probing
+
 $P(x) = ax + b$
+
 - where a, b are constants
+
 ### Quadratic probing
+
 $P(x) = ax^2 + bx + c$
+
 - where a, b,c are constants
+
 ### Double Hashing
-$P(k,x) = x*H_2(k)$ 
+
+$P(k,x) = x\*H_2(k)$
+
 - where $H_2(k)$ is a secondary hash function
+
 ### Pseudo Random Number Generator
-$P(k,x) = x*RNG(H(k),x)$ 
+
+$P(k,x) = x\*RNG(H(k),x)$
+
 - where RNG is a random number generator seeded with $H(k)$
 
 ## Chaos with cycles
+
 - Most randomly selected probing sequences modulo N will produce a cycle shorter than the table size
 - This becomes problematic when you are trying to insert a key-value pair and all the buckets on the cycle are occupied because you will get stuck in an infinite loop
-- Sol: Avoid this by restricting our domain of probing functions to those which produce a cycle of exactly length $N$ 
+- Sol: Avoid this by restricting our domain of probing functions to those which produce a cycle of exactly length $N$
+
 # Hashtable + Open Addressing Implementation
+
 ```python
 def HashMap:
 	def __init__(self, N):
@@ -104,6 +125,7 @@ def HashMap:
 	def 
 
 ```
+
 # Hashtable + Separate Chaining Implementation
 
 ```python
@@ -167,12 +189,11 @@ class MyHashMap:
 
 ## Optimized Complexity
 
-<CustomCallout type="Time-Complexity" title="Time Complexity"></CustomCallout>
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}></CustomCallout>
 
-<CustomCallout type="Space-Complexity" title="Space Complexity"></CustomCallout>
-
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}></CustomCallout>
 
 # Related
 
-- [[LC-706. Design HashMap]]
+- \[[LC-706. Design HashMap]\]
 - https://runestone.academy/ns/books/published/pythonds/SortSearch/Hashing.html

@@ -1,9 +1,10 @@
 ---
-modified: 2024-12-30T22:18:17-05:00
+modified: 2024-12-30T23:40:03-05:00
 ---
 ## Binary Trees
 
 ### Basic Operations
+
 #### Insert
 
 ```python
@@ -36,7 +37,9 @@ def closestValue(self, root: TreeNode, target: float) -> int:
 ```
 
 #### Pruning
+
 https://leetcode.com/problems/binary-tree-pruning/
+
 - Delete all subtrees without a '1'
 
 ```python
@@ -134,7 +137,7 @@ https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/descripti
 
 #### Vertical Order Traversal
 
-![[Pasted image 20240304190355.png]]
+![Pasted-image-20240304190355.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20240304190355-952f1e18990c20a7930ee66513010af6.png)
 res:`[[4],[9,5],[3,0,1],[8,2],[7]]`
 
 - BFS with root set to col 0
@@ -259,9 +262,10 @@ def verifyPreorder(self, preorder: List[int]) -> bool:
     - This means we are now on the left side of the tree, new nodes cannot be greater than this parent value
   - add to stack if we encounter numbers greater than the current (we are in the right side of the tree)
 
+### LCA
 
-### LCA 
 https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/description/
+
 - If we are at the LCA, then p and q must be on different sides of the tree
 
 ```python
@@ -285,12 +289,13 @@ def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -
         return dfs(root)
 ```
 
-
-
 ### Generating All Possible BST
+
 https://leetcode.com/problems/unique-binary-search-trees-ii/
+
 - Take the product of all left and right trees for root = i
-```python 
+
+```python
 def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         res = []
         @lru_cache(None)
@@ -319,8 +324,8 @@ def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
         return res
 ```
 
-
 ### Traversing Through Parent
-- Approach 1: DFS and build undirected graph with edges from parent <-> child, then BFS on undirected graph
+
+- Approach 1: DFS and build undirected graph with edges from parent \<-> child, then BFS on undirected graph
 - Approach 2: Store parents of each node in hash map and DFS with distance counter
-https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/description/
+  https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/description/

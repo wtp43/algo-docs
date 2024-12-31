@@ -3,16 +3,18 @@ title: Radix Sort
 created: 2022-12-15
 modified: 2024-12-30T22:27:01-05:00
 ---
-
 # Radix Sort
+
 A non-comparative algorithm just like counting sort.
-Sorts by first grouping the individual digits of the same **place value**. 
+Sorts by first grouping the individual digits of the same **place value**.
 
 # Most Significant Digit (MSD) vs Least Significant Digitt (LSD) Radix Sort
+
 If we start with the most significant digits, a first pass would go a long way toward sorting the entire range. The idea of a MSD radix sort is to divide all the digits with an equal value into their own bucket and repeat. Naturally, this suggests a recursive algorithm, but this also means that we can now sort variable length items and we don't have to touch all of the digits to get a sorted array. However, a recursive implementation of MSD uses more space than LSD. LSD is faster than MSD when there is a fixed length. (https://stackoverflow.com/questions/11939656/radix-sort-lsd-versus-msd-versions)
+
 # LSD Radix Implementation
 
-Counting sort is used as an intermediate sort in radix sort. Counting sort is slightly modified to divide 
+Counting sort is used as an intermediate sort in radix sort. Counting sort is slightly modified to divide
 
 ```python
 def counting_sort(array, place):
@@ -78,11 +80,8 @@ def radix_sort_MSD_for_strings (array, i):
 
 ## Optimized Complexity
 
-<CustomCallout type="Time-Complexity" title="Time Complexity">O(n+k)</CustomCallout>
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}>O(n+k)</CustomCallout>
 
-<CustomCallout type="Space-Complexity" title="Space Complexity">O(max).If we take very large digit numbers or the number of other bases like 32-bit and 64-bit numbers then it can perform in linear time however the intermediate sort takes large space.</CustomCallout>
-This makes radix sort space inefficient. This is the reason why this sort is not used in software libraries.
-
-
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}>O(max).If we take very large digit numbers or the number of other bases like 32-bit and 64-bit numbers then it can perform in linear time however the intermediate sort takes large space.This makes radix sort space inefficient. This is the reason why this sort is not used in software libraries.</CustomCallout>
 
 # Related

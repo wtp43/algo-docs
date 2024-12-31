@@ -3,13 +3,11 @@ modified: 2024-12-30T22:19:39-05:00
 ---
 ## Bellman Ford
 
-<CustomCallout type="note" title="note"></CustomCallout>
-Bellman Ford iteratively relaxes the distance from u to v 
-**Complexity**: O(VE) Intuitively, |V-1| iterations are needed because that's the largest amount of stops the longest possible shortest path from source s to destination v can have. 
+<CustomCallout type={"note"} title={"note"}>Bellman Ford iteratively relaxes the distance from u to v**Complexity**: O(VE) Intuitively, |V-1| iterations are needed because that's the largest amount of stops the longest possible shortest path from source s to destination v can have.</CustomCallout>
 
 - Finds the shortest path from a starting vertex to all other vertices in a weighted graph
 - Works for negative weights
-- Good for detecting [[negative weight cycles]] as the algorithm converges to an optimal solution in O(V*E) steps
+- Good for detecting \[[negative weight cycles]\] as the algorithm converges to an optimal solution in O(V\*E) steps
 - If the resultant is not optimal, then the graph contains a negative weight cycle
 - Dijkstra's algorithm can handle positive weighted cycles but not negative weighted cycles
 
@@ -38,7 +36,8 @@ def bellman_ford(graph, start):
 ```
 
 ### Backlinks
----
 
-[Graph-Theory](/Graphs/Graph-Theory.mdx)
-[Floyd-Warshall-s-Algorith](/Graphs/Floyd-Warshall-s-Algorithm.mdx)
+______________________________________________________________________
+
+\[[Graph Theory]\]
+\[[Floyd-Warshall's Algorithm]\]

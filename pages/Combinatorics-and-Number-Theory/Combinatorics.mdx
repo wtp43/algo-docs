@@ -1,43 +1,55 @@
 ---
+modified: 2024-12-31T03:06:45-05:00
 ---
 # Combinatorics
+
 - [x] https://leetcode.com/problems/count-collisions-of-monkeys-on-a-polygon/description/
-- There are n monkeys at pos i in an array. 
+
+- There are n monkeys at pos i in an array.
+
 - Each monkey must move once
+
 - If they move in opposite directions, a collision happens.
+
 - Return the number of collisions
+
 - Is it easier to count the number of collisions or no collisions?
+
 - No collisions = 2 for any n, because monkeys can all move cw or ccw
+
 - Situations with collisions = $2^n - 2$
 
 - [x] https://leetcode.com/problems/unique-paths/solutions/504514/unique-paths/
+
 - [ ] In other words, we're asked to compute in how many ways one could choose p elements from p+k elements. In mathematics, that's called [binomial coefficients](https://en.wikipedia.org/wiki/Binomial_coefficient)
+
 - [ ] The problem is a classical combinatorial problem: there are h+v moves to do from start to finish, h=m−1 horizontal moves, and v=n−1 vertical ones. One could choose when to move to the right, i.e. to define h horizontal moves, and that will fix vertical ones. Or, one could choose when to move down, i.e. to define v vertical moves, and that will fix horizontal ones.
 
-
-![[Pasted image 20230203202802.png]]
+![Pasted-image-20230203202802.png](https://algorithms-doc.vercel.app/assets/images/Pasted-image-20230203202802-70676a7a61efc60cda47862055b1018e.png)
 
 - [ ] https://leetcodethehardway.com/tutorials/math/combinatorics
 
-
-
-
 ## DP
+
 - Useful for aggregating multiple combinations/permutations
 - Find recurrence relation with a previous state
+
 ### Count number of answers 'with some conditions' that end in 'X'
+
 https://leetcode.com/problems/student-attendance-record-ii/solutions/101639/pure-math-and-easy-to-understand-python-o-n-solution/
 
 ### DFS with States
+
 https://leetcode.com/problems/student-attendance-record-ii/description/
 
-
 ### Count in Valid Intervals
+
 https://leetcode.com/problems/plates-between-candles/description/
 
-
 ### Count Number of Texts
+
 https://leetcode.com/problems/count-number-of-texts/description/
+
 ```python
 def countTexts(self, pressedKeys: str) -> int:
         n = len(pressedKeys)
@@ -57,12 +69,13 @@ def countTexts(self, pressedKeys: str) -> int:
         return dp[n]
 ```
 
-
-
 ## Permutations and Combinations
+
 ### Number of Ways to Reach a Position After Exactly k Steps
+
 > Go from start to end on an infinite number line in exactly k steps
-https://leetcode.com/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/description/
+> https://leetcode.com/problems/number-of-ways-to-reach-a-position-after-exactly-k-steps/description/
+
 - We have k items -> k! orderings
 - We have two types of items (left or right) which are indistinguishable -> divide by left! and right!
 - This is equal to k choose left (which is equivalent to k choose right)
@@ -79,20 +92,23 @@ def numberOfWays(self, startPos: int, endPos: int, k: int) -> int:
 ## Counting
 
 ### Count Subarrays with Exactly K 'x'
+
 - exactly k = (at least k) - (at least k-1)
 
-
 ### Number of Ways to Get from Top-Left to Bottom-Right
+
 > Only down and right moves are allowed
 
-$\frac{(m+n-2)!}{(m-1)!(n-1)!}$ $=$ ${m+n-2}\choose{n-1}$
+$\\frac{(m+n-2)!}{(m-1)!(n-1)!}$ $=$ ${m+n-2}\\choose{n-1}$
 
 ### Sum Vowels of All Substrings
+
 https://leetcode.com/problems/vowels-of-all-substrings/
-- For a vowel at position i, how many substrings can be made with it? 
-	- Group 1: There are i letters before it
-	- Group 2: n-i letters after it
-	- Append the ith vowel to one of the groups
+
+- For a vowel at position i, how many substrings can be made with it?
+  - Group 1: There are i letters before it
+  - Group 2: n-i letters after it
+  - Append the ith vowel to one of the groups
 
 ```python
 def countVowels(self, word: str) -> int:
@@ -105,8 +121,11 @@ def countVowels(self, word: str) -> int:
 ```
 
 ### Sum Distinct Score of All Substrings
-From that problem, we use the fact that each character appears in (i + 1) * (n - i) substrings. However, it does not contribute to the appeal of substrings on the left that already include that character. 
+
+From that problem, we use the fact that each character appears in (i + 1) * (n - i) substrings. However, it does not contribute to the appeal of substrings on the left that already include that character.
+
 - Store indices of previous occurrences of the current character
+
 ```python
 def appealSum(self, s: str) -> int:
         prev = defaultdict(lambda: -1)
@@ -119,12 +138,13 @@ def appealSum(self, s: str) -> int:
 
 ```
 
-
 ### [Plates Between Candles](https://leetcode.com/problems/plates-between-candles/)
+
 > Count plates between 2 candles for all queries
 
 - We don't actually have to count plates
 - Number of plates between 2 candles = number of spots on the range (candle i, candle j) - number of candles in this range
+
 ```python
 def platesBetweenCandles(self, s: str, queries: List[List[int]]) -> List[int]:
         candles = [i for i,c in enumerate(s) if c == '|']

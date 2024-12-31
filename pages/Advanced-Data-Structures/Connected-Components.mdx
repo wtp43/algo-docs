@@ -1,7 +1,8 @@
 ---
 modified: 2024-12-30T22:51:25-05:00
 ---
-[DFS](/Graphs/DFS.mdx)
+# Approach #1: \[[DFS]\]
+
 ```python
 n = len(graph.get_vertices())
 seen = [0]*n
@@ -25,5 +26,6 @@ def dfs(graph, at):
 
 - DFS is asymptotically faster than union-find but is best suited for static graphs where no new edges will added
 
-[Union-Fin](/Graphs/Union-Find.mdx)
+# Approach #2: \[[Union Find]\]
+
 - Union-find is more useful if the graph isn't in memory or the graph is dynamic

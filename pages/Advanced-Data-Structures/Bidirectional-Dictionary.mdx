@@ -1,22 +1,24 @@
 ---
 title: Bidirectional Dictionary
 created: 2023-01-22
-modified: 2024-12-30T22:51:35-05:00
+modified: 2024-12-30T23:36:56-05:00
 ---
 # Description
+
 Here is a class for a bidirectional `dict`, inspired by [Finding key from value in Python dictionary](https://stackoverflow.com/questions/7657457/finding-key-from-value-in-python-dictionar) and modified to allow the following 2) and 3).
 
 Note that :
 
--   1.  The _inverse directory_ `bd.inverse` auto-updates itself when the standard dict `bd` is modified.
--   2.  The _inverse directory_ `bd.inverse[value]` is always a **list** of `key` such that `bd[key] == value`.
--   3.  Unlike the `bidict` module from [https://pypi.python.org/pypi/bidict](https://pypi.python.org/pypi/bidict), here we can have 2 keys having same value, this is _very important_.
+- 1. The inverse directory\_ `bd.inverse` auto-updates itself when the standard dict `bd` is modified.
+- 2. The _inverse directory_ `bd.inverse[value]` is always a **list** of `key` such that `bd[key] == value`.
+- 3. Unlike the `bidict` module from [https://pypi.python.org/pypi/bidict](https://pypi.python.org/pypi/bidict), here we can have 2 keys having same value, this is _very important_.
 
 # Intuition
 
-<CustomCallout type="danger" title="danger"></CustomCallout>
+<CustomCallout type={"danger"} title={"danger"}></CustomCallout>
 
 # Implementation
+
 Subclassing dict
 
 ```python
@@ -40,7 +42,7 @@ class bidict(dict):
         super(bidict, self).__delitem__(key)
 ```
 
-<CustomCallout type="example" title="example">```python</CustomCallout>
+```python
 bd = bidict({'a': 1, 'b': 2})  
 print(bd)                     # {'a': 1, 'b': 2}                 
 print(bd.inverse)             # {1: ['a'], 2: ['b']}
@@ -56,8 +58,5 @@ print(bd.inverse)             # {2: ['b']}
 bd['b'] = 3
 print(bd)                     # {'b': 3}
 print(bd.inverse)             # {2: [], 3: ['b']}
-
-
-
 # Related
-Source: https://stackoverflow.com/questions/3318625/how-to-implement-an-efficient-bidirectional-hash-table
+Source: https://stackoverflow.com/questions/3318625/how-to-implement-an-efficient-bidirectional-hash-table```

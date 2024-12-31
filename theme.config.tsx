@@ -12,13 +12,13 @@ const config: DocsThemeConfig = {
   },
   main: ({ children }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { frontMatter } = useConfig();
+    // const { frontMatter } = useConfig();
     return (
       <main className="">
         {children}
-        <p className="nx-mt-2 nx-text-4xl nx-font-bold nx-tracking-tight">
-          Last modified: {frontMatter?.modified}
-        </p>
+        {/* <p className="nx-mt-2 nx-text-4xl nx-font-bold nx-tracking-tight"> */}
+        {/*   Last modified: {frontMatter?.modified} */}
+        {/* </p> */}
       </main>
     );
   },

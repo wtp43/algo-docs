@@ -4,13 +4,15 @@ created: 2022-12-12
 modified: 2024-12-30T22:51:57-05:00
 ---
 # Indexed Priority Queue (Binary)
+
 1. Assign index values to all the keys forming a bidirectional mapping using a bidirectional hashtable (maintain two dictionaries)
 
 ## Swap(i, j)
+
 - i, j are the key indexes
 
 Key | Key Index
----- | ---- 
+---- | ----
 'A' | 1
 'B' | 2
 'C' | 3
@@ -19,19 +21,19 @@ Key | Key Index
 'F' | 6
 'G' | 7
 
-|      | 0   | 1   | 2   | 3   | 4   | 5   | 6   | 7   |
+| | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | ---- | --- | --- | --- | --- | --- | --- | --- | --- |
-| vals |  0   |  6   | 10    |  4   |  7   |   15  |   1  |   12  |
-| pm   |  0   |  3   |  5   |   2  |  4   |   7  |   1  |   6  |
-| im   |  0   |  6   |  3   |  1   |  4   |  2   |  7   |  5   |
+| vals | 0 | 6 | 10 | 4 | 7 | 15 | 1 | 12 |
+| pm | 0 | 3 | 5 | 2 | 4 | 7 | 1 | 6 |
+| im | 0 | 6 | 3 | 1 | 4 | 2 | 7 | 5 |
 
 Swap(6, 5) results in
 
-|      | 0   | 1   | 2   | 3   | 4   | 5   | 6   | 7   |
+| | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | ---- | --- | --- | --- | --- | --- | --- | --- | --- |
-| vals |  0   |  6   | 10    |  4   |  7   |   15  |   1  |   12  |
-| pm   |  0   |  3   |  5   |   2  |  4   |   '1'  |   '7'  |   6  |
-| im   |  0   |  5   |  3   |  1   |  4   |  2   |  7   |  6   |
+| vals | 0 | 6 | 10 | 4 | 7 | 15 | 1 | 12 |
+| pm | 0 | 3 | 5 | 2 | 4 | '1' | '7' | 6 |
+| im | 0 | 5 | 3 | 1 | 4 | 2 | 7 | 6 |
 
 vals: ki -> value
 pm: ki -> node index
@@ -41,7 +43,6 @@ im: node index (heap) -> ki
 
 - We are only swapping the positions of the values
 - The values array stays constant
-
 
 ```python
 class IPQ:
@@ -158,12 +159,8 @@ class IPQ:
 
 ## Optimized Complexity
 
-<CustomCallout type="Time-Complexity" title="Time Complexity">Sink/Swim: O(logn)Update/decrease_key/increase_key: O(logn)Build heap: O(n)</CustomCallout>
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}>Sink/Swim: O(logn)Update/decrease_key/increase_key: O(logn)Build heap: O(n)</CustomCallout>
 
-
-
-
-<CustomCallout type="Space-Complexity" title="Space Complexity"></CustomCallout>
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}></CustomCallout>
 
 # Related
-

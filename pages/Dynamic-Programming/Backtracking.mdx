@@ -25,21 +25,26 @@ def backtrack(candidate):
 ```
 
 ## Optimizations
+
 - Suppose we want to check the validity of an array
-	- Sort 
+  - Sort
 
+<CustomCallout type={"Time-Complexity"} title={"Time Complexity"}></CustomCallout>
 
-<CustomCallout type="Time-Complexity" title="Time Complexity"></CustomCallout>
-
-<CustomCallout type="Space-Complexity" title="Space Complexity"></CustomCallout>
+<CustomCallout type={"Space-Complexity"} title={"Space Complexity"}></CustomCallout>
 
 ## Applications
 
 ### Knapsack/Item Matching/Distribution/Subset
+
 https://leetcode.com/problems/distribute-repeating-integers/
--     Greedy does not work because assigning the greatest x to the greatest y is not optimal
-	- Consider `quantities=[a,a,a,a,b,b,b], groups=[2,2,3]`, greedy would take 3 'a's 
-- This problem reduces to 0/1 Knapsack. Greedy only works for fractional knapsack 
+
+- ```
+  Greedy does not work because assigning the greatest x to the greatest y is not optimal
+  ```
+  - Consider `quantities=[a,a,a,a,b,b,b], groups=[2,2,3]`, greedy would take 3 'a's
+- This problem reduces to 0/1 Knapsack. Greedy only works for fractional knapsack
+
 ```python
 def canDistribute(self, nums: List[int], quantity: List[int]) -> bool:
 
@@ -65,14 +70,17 @@ def canDistribute(self, nums: List[int], quantity: List[int]) -> bool:
 ```
 
 ### Testing All Pairs
+
 https://leetcode.com/problems/maximize-score-after-n-operations/description/
+
 #### Optimizations
+
 - Keep map for costly computations:
-	- GCD map. 
-	- To build a map with tuples as the key, access them as (mn, mx) where mn = min(x,y) and mx = max(x,y)
+  - GCD map.
+  - To build a map with tuples as the key, access them as (mn, mx) where mn = min(x,y) and mx = max(x,y)
 - Memoize/cache completed calculations:
-	- Either keep a memo map or append lru_cache decorator to function
-	- Make sure to not include unique counters (such as score) into the function parameters
+  - Either keep a memo map or append lru_cache decorator to function
+  - Make sure to not include unique counters (such as score) into the function parameters
 
 ```python
 def maxScore(self, nums: List[int]) -> int:
@@ -104,7 +112,6 @@ def maxScore(self, nums: List[int]) -> int:
 
 **Time Complexity:** O($2^{2n}*(2n)^2+2n*log(A)$) since we cache the result of dfs(k,mask), we are only processing each unique mask once.
 There are $2^{2n}$ masks, at most $(2n)^2$ pairs for each mask, $log(A)$ to calculate the GCD of the maximum two numbers.
-
 
 ### Including or not including
 
@@ -170,6 +177,7 @@ def permuteUnique(self, nums: List[int]) -> List[List[int]]:
 ```
 
 **Time Complexity:** O($2^n * n)$ since there are $2^n$ orderings and it takes O(n) to make a copy of that order.
+
 #### Combinations
 
 - build combination by picking a number from (i,n)
@@ -276,6 +284,5 @@ def uniquePathsIII(self, grid: List[List[int]]) -> int:
 ```
 
 # Spiral Backtracking
-
 
 # Related

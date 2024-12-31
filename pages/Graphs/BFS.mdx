@@ -2,8 +2,11 @@
 modified: 2024-12-30T22:19:42-05:00
 ---
 # BFS
+
 ## BFS
+
 > BFS can guarantee shortest path while DFS does not
+
 ```python
 def bfs(graph: Dict[int, List[int]], start: int):
 	
@@ -37,23 +40,27 @@ def reconstruct_path(start, end, prev):
 		return path
 	return []
 ```
+
 - the prev array allows us to reconstruct the shortest path
+
 ### Time/Space Complexity
+
 - O($b^d$) where $b$ is the branching factor, $d$ is the depth of the tree which is equivalent to O(E + V)
 - Space Complexity of DFS is only O(depth) while BFS is O(n) = O(|v|)
 
 ## Multisource BFS
+
 Append all sources to a q and iterate the q in chunks/layers.
 
-[[LC-286. Walls and Gates]]
-[[LC-994. Rotting Oranges]]
-
-
+\[[LC-286. Walls and Gates]\]
+\[[LC-994. Rotting Oranges]\]
 
 ## Shortest Path Problems
 
 ### Minimum Operations to Convert Number
+
 https://leetcode.com/problems/minimum-operations-to-convert-number/description/
+
 - Put possible subsequent states into a queue
 
 ```python
@@ -79,11 +86,8 @@ def minimumOperations(self, nums: List[int], start: int, goal: int) -> int:
 
 # Related Problems
 
-## [[Matrix Traversals|Using BFS to find the shortest path on a grid]]
-
-
+## \[[Matrix Traversals|Using BFS to find the shortest path on a grid]\]
 
 ## BFS Traversals
 
 ### Level-order Traversal
-

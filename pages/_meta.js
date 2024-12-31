@@ -3,5 +3,6 @@ export default {
   Arrays: "Arrays",
   about: {
     title: "About",
+    type: "page",
   },
 };

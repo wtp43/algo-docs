@@ -4,6 +4,7 @@ created: 2023-01-04
 modified: 2024-12-30T22:18:34-05:00
 ---
 # Bit Manipulation
+
 ## Bit Operations
 
 - Largest bit will be greater than all other bits combined
@@ -51,8 +52,11 @@ n & (-n) 
 ```
 
 ### [Shortest Subarray With OR at Least K II](https://leetcode.com/problems/shortest-subarray-with-or-at-least-k-ii/)
-<CustomCallout type="tip" title="tip">A hash map is required to store the count of bits when working with prefixes or previous states.</CustomCallout>
+
+<CustomCallout type={"tip"} title={"tip"}>A hash map is required to store the count of bits when working with prefixes or previous states.</CustomCallout>
+
 - Sliding window + bit count
+
 ```python
 def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
 	cnt = [0]*30
@@ -79,11 +83,13 @@ def minimumSubarrayLength(self, nums: List[int], k: int) -> int:
 	return res if res != math.inf else -1
 ```
 
-### Keeping Track of Numbers + Splitting Them Into Groups 
+### Keeping Track of Numbers + Splitting Them Into Groups
+
 - Find the two numbers that occur only once in an array of numbers that occur twice
 - If a number occurs twice, the XOR of both of them is 0
 - Use a mask to first get the XOR of the two missing numbers
-- To separate them, we need a second XOR mask that has the rightmost bit of the first mask set to 1. 
+- To separate them, we need a second XOR mask that has the rightmost bit of the first mask set to 1.
+
 ```python
 def singleNumber(self, nums: int) -> List[int]:
         # difference between two numbers (x and y) which were seen only once
@@ -105,6 +111,7 @@ def singleNumber(self, nums: int) -> List[int]:
 ```
 
 ### Minimum Operations to Form Subsequence with Target Sum
+
 https://leetcode.com/problems/minimum-operations-to-form-subsequence-with-target-sum/description/
 
 ### Brian Kernighan's Algorithm
@@ -126,14 +133,18 @@ int countSetBits(int n)
 ```
 
 ### Mod 3 with XOR (Mimic hash map with multiple masks)
+
 https://leetcode.com/problems/single-number-ii/description/?envType=study-plan-v2&envId=top-interview-150
+
 ### Detect Power of Two
 
 - Set most significant bit to zero and compare result to zero
   `x & (x-1) == 0`
 
 ### AND + XOR Distributive Property
+
 https://leetcode.com/problems/find-xor-sum-of-all-pairs-bitwise-and/solutions/1163992/java-c-python-easy-and-concise-o-1-space/
+
 ### Subtraction under modulo 2
 
 - XOR operator is equivalent to subtraction under modulo 2
@@ -235,23 +246,24 @@ def hasAllCodes(self, s: str, k: int) -> bool:
         return False
 ```
 
+# https://leetcode.com/problems/find-the-k-th-lucky-number/?envType=weekly-question&envId=2024-05-29
 
-https://leetcode.com/problems/find-the-k-th-lucky-number/?envType=weekly-question&envId=2024-05-29
-=======
 ### Bit Operation Properties
+
 ```python
 a^b is equivalent to subtracting b from a
 a^b == 0 if and  only if a == b
 ```
 
->>>>>>> 5a71c508d3099d93f3f323e8771832c0fd64195d
+> > > > > > > 5a71c508d3099d93f3f323e8771832c0fd64195d
 
 ## Hard Problems
 
 ### Find All Possible Distinct Values of Bitwise OR of all Strictly Increasing Subsequences
+
 - Key: we don't need the entire subsequence, calculating all possible increasing subsequences would be O($2^n$)
 - Keep bitmask of distinct values seen so far
-- Choose every index as the ending num, for all numbers before that which are smaller, bitwise or the smaller number with the chosen index 
+- Choose every index as the ending num, for all numbers before that which are smaller, bitwise or the smaller number with the chosen index
 
 ```python
 def goodness(arr):
@@ -270,6 +282,7 @@ def goodness(arr):
 ```
 
 # Related
+
 https://leetcode.com/problems/sum-of-two-integers/solutions/84278/A-summary:-how-to-use-bit-manipulation-to-solve-problems-easily-and-efficiently/
 
 https://leetcode.com/problems/sum-of-two-integers/solutions/678639/sum-of-two-integers/

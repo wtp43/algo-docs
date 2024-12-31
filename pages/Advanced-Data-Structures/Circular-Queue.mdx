@@ -1,13 +1,15 @@
 ---
 modified: 2024-12-30T22:51:26-05:00
 ---
+Related: \[[Circular Deque]\]
 
-[Circular-Deque](/Advanced-Data-Structures/Circular-Deque.mdx)
 - Last element is connected to the first
 - Specifically for In a normal queue, after a bit of insertion and deletion, there will be non-usable empty spaces at the start of the queue
 - Implementing with linked list defeats the purpose of saving memory (using extra malloc)
- ![Circular increment in circular queue](https://cdn.programiz.com/sites/tutorial2program/files/circular-increment.png "Circular queue")
+  ![Circular increment in circular queue](https://cdn.programiz.com/sites/tutorial2program/files/circular-increment.png "Circular queue")
+
 # Implementation
+
 - Two pointers FRONT and REAR
 - FRONT tracks first element of the queue
 - REAR tracks last element of the queue (initialize both to -1)
@@ -59,8 +61,9 @@ class Circular_queue():
 
 ```
 
-<CustomCallout type="example" title="example">![enqueue and dequeue operation of the circular queue](https://cdn.programiz.com/sites/tutorial2program/files/circular-queue-program.png "Working of circular queue")</CustomCallout>
+<CustomCallout type={"example"} title={"example"}>![enqueue and dequeue operation of the circular queue](https://cdn.programiz.com/sites/tutorial2program/files/circular-queue-program.png "Working of circular queue")</CustomCallout>
 
 # Applications
-- [[LC-622. Design Circular Queue]]
-- [[LC-174. Dungeon Game]]
+
+- \[[LC-622. Design Circular Queue]\]
+- \[[LC-174. Dungeon Game]\]

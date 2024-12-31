@@ -4,12 +4,18 @@ import os
 import re
 import shutil
 
+import mdit_py_plugins
+import regex
+from markdown_it import MarkdownIt
+from mdformat.renderer import MDRenderer
+from mdit_py_plugins.front_matter import front_matter_plugin
+
 
 def change_callout(match):
     callout_content = match.captures(3)
     callout_title = match.groups(2)[0]
     callout_type = match.groups(1)[0].lstrip(" [!").rstrip("]").replace(" ", "-")
-    callout = f'<CustomCallout type="{callout_type}" title="{callout_title}">'
+    callout = f'<CustomCallout type={{"{callout_type}"}} title={{"{callout_title}"}}>'
     for line in callout_content:
         callout += line.lstrip("\n> ")
 
@@ -18,69 +24,98 @@ def change_callout(match):
     return callout
 
 
+def format_md(file_path):
+
+    with open(file_path, "r") as file:
+        mdx_content = file.read()
+
+    md = MarkdownIt("commonmark").use(front_matter_plugin)
+
+    tokens = md.parse(mdx_content)
+
+    # Access frontmatter token
+    frontmatter_token = tokens[0]  # Frontmatter is usually the first token
+
+    # Reconstruct the frontmatter as a markdown string
+    frontmatter_content = "---\n"
+    for line in frontmatter_token.content.splitlines():
+        frontmatter_content += line + "\n"
+    frontmatter_content += "---\n"
+
+    tokens = tokens[1:]
+    for i in range(len(tokens)):
+        if tokens[i].type != "fence":
+            tokens[i].content = re.sub(r"<=", "\\<=", tokens[i].content)
+    renderer = MDRenderer("commonmark")
+    options = {}
+    env = {}
+
+    output_markdown = frontmatter_content + renderer.render(tokens, options, env)
+    # output_markdown = frontmatter_content + "".join([t.content for t in tokens])
+    with open(file_path, "w") as file:
+        file.write(output_markdown)
+
+
 def process_file(file_path, docs_dir, attachments_dir):
-    try:
-        with open(file_path, "r") as file:
+    format_md(file_path)
+    with open(file_path, "r") as file:
 
-            # TODO: file names with ' and callouts including attachments
-            lines = file.readlines()
-            for i in range(len(lines)):
-                backlink = re.search(r"\[\[(.*?)\]\]", lines[i])
-                if backlink:
-                    pattern = backlink.group(1)
-                    pattern = re.sub(r"[ ']", "-", pattern)
-                    path = next(
-                        (
-                            os.path.join(root, name)
-                            for root, dirs, files in os.walk(docs_dir)
-                            for name in files
-                            if pattern in name
-                        ),
-                        None,
+        # TODO: file names with ' and callouts including attachments
+        lines = file.readlines()
+        for i in range(len(lines)):
+            backlink = re.search(r"\[\[(.*?)\]\]", lines[i])
+            if backlink:
+                pattern = backlink.group(1)
+                pattern = re.sub(r"[ ']", "-", pattern)
+                path = next(
+                    (
+                        os.path.join(root, name)
+                        for root, dirs, files in os.walk(docs_dir)
+                        for name in files
+                        if pattern in name
+                    ),
+                    None,
+                )
+
+                # Backlink is a reference to a static asset
+                if path:
+                    ref_name = os.path.basename(path).rstrip(".mdx")
+                    parts = path.split(os.sep)  # Split the path into components
+                    path = os.sep.join(parts[1:]).rstrip(".md")
+
+                    path = re.sub(r"[ ']", "-", path)
+                    lines[i] = f"[{ref_name}](/{path})\n"
+
+            attachment = re.search(r"!\[\[(.*?)\]\]", lines[i])
+            if attachment:
+                pattern = attachment.group(1)
+                path = next(
+                    (
+                        os.path.join(root, name)
+                        for root, dirs, files in os.walk(attachments_dir)
+                        for name in files
+                        if pattern in name
+                    ),
+                    None,
+                )
+                if path:
+                    path = "/mdx_attachments/" + os.path.basename(path).replace(
+                        " ", "-"
                     )
+                    lines[i] = f"![{pattern}]({path})"
 
-                    # Backlink is a reference to a static asset
-                    if path:
-                        ref_name = os.path.basename(path).rstrip(".mdx")
-                        parts = path.split(os.sep)  # Split the path into components
-                        path = os.sep.join(parts[1:]).rstrip(".md")
+    with open(file_path, "w") as file:
+        file.writelines(lines)
 
-                        path = re.sub(r"[ ']", "-", path)
-                        lines[i] = f"[{ref_name}](/{path})\n"
+    # Change obsidian callouts to react components
+    with open(file_path, "r") as file:
+        # pattern = re.compile(r">(\[!\D+?\])(\n>.+)*")
+        reg0 = regex.compile(r"> ?\[!(.+?)\]\+?(.*)(\n>.+)*", regex.MULTILINE)
+        # reg0 = regex.compile(r"> (\[!\D+?\]).*", regex.MULTILINE)
+        modified_callouts = reg0.sub(lambda m: change_callout(m), file.read())
 
-                attachment = re.search(r"!\[\[(.*?)\]\]", lines[i])
-                if attachment:
-                    pattern = attachment.group(1)
-                    path = next(
-                        (
-                            os.path.join(root, name)
-                            for root, dirs, files in os.walk(attachments_dir)
-                            for name in files
-                            if pattern in name
-                        ),
-                        None,
-                    )
-                    if path:
-                        path = "/mdx_attachments/" + os.path.basename(path).replace(
-                            " ", "-"
-                        )
-                        lines[i] = f"![{pattern}]({path})"
-
-        with open(file_path, "w") as file:
-            file.writelines(lines)
-
-        # Change obsidian callouts to react components
-        with open(file_path, "r") as file:
-            # pattern = re.compile(r">(\[!\D+?\])(\n>.+)*")
-            reg0 = regex.compile(r"> ?\[!(.+?)\]\+?(.*)(\n>.+)*", regex.MULTILINE)
-            # reg0 = regex.compile(r"> (\[!\D+?\]).*", regex.MULTILINE)
-            modified_callouts = reg0.sub(lambda m: change_callout(m), file.read())
-
-        with open(file_path, "w") as file:
-            file.writelines(modified_callouts)
-    except Exception as e:
-        print(file_path)
-        print(e)
+    with open(file_path, "w") as file:
+        file.writelines(modified_callouts)
 
 
 def copy_vault(src, docs_dir, attachments_dir):

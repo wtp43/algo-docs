@@ -4,6 +4,7 @@ modified: 2024-12-30T18:51:37-05:00
 # Matrix Operations and Traversals
 
 ## Rows to Cols
+
 ```python
 matrix = [[3,7,8],[9,11,13],[15,16,17]]
 # x is a tuple
@@ -13,6 +14,7 @@ columns = [list(x) for x in zip(*matrix)]
 ```
 
 ## Direction Vectors
+
 - Makes accessing neighbouring cells very easy
 
 ```python
@@ -29,8 +31,7 @@ for i in range(len(dr)):
 
 ```
 
-
-[BFS](/Graphs/BFS.mdx)
+## Matrix Traversal using \[[BFS]\]
 
 ```python
 
@@ -56,4 +57,3 @@ def bfs(grid: List[List[int]], x: int, y: int):
 	
 
 ```
-

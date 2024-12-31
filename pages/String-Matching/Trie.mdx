@@ -4,6 +4,7 @@ created: 2023-01-06
 modified: 2024-12-30T22:27:52-05:00
 ---
 # Trie
+
 ## Implementation
 
 ```python
@@ -68,16 +69,16 @@ def find(w):
 	return cur.get('$', False):
 ```
 
-## Optimization:  Pre Order Traversal
+## Optimization: Pre Order Traversal
+
 To find all words in sorted order, iterate the alphabet instead of sorting the words.
 Then we are guaranteed O(n) instead of O(nlogn) for the sort.
 
-
 ## Practice Problems
-- [ ] [[LC-1268. Search Suggestions System]]
-- Preorder traversal of a trie
-	- Do not sort. Loop the alphabet instead
 
+- [ ] \[[LC-1268. Search Suggestions System]\]
+- Preorder traversal of a trie
+  - Do not sort. Loop the alphabet instead
 
 ### Replace Words
 
@@ -110,11 +111,12 @@ def replaceWords(self, dictionary: List[str], sentence: str) -> str:
         return ' '.join(res)
 ```
 
-
 ## DP + Trie
 
 ### [Construct String with Minimum Cost](https://leetcode.com/problems/construct-string-with-minimum-cost/)
+
 > Construct target string from list of words with different costs
+
 ```python
 def minimumCost(self, target: str, words: List[str], costs: List[int]) -> int:
 	dp = [math.inf]*(len(target)+1)

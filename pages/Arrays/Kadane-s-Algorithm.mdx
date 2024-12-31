@@ -2,9 +2,13 @@
 modified: 2024-12-30T22:05:14-05:00
 ---
 # Kadane's Algorithm
-- Solve maximum/minimum subarray in O(n) 
+
+- Solve maximum/minimum subarray in O(n)
+
 ## Maximum Subarray
+
 - Ask interviewer "Are subarrays with length 0 valid?"
+
 ```python
 def maximum_array(arr):
 	maxsuffix = 0
@@ -27,9 +31,11 @@ return maxsofar
 ## Subarray/Substring
 
 ### [2272. Substring With Largest Variance](https://leetcode.com/problems/substring-with-largest-variance/)
+
 > Variance: largest difference in frequency between any two characters in a string
 
 - Try combinations of all pairs of characters: $O(26^2)$
+
 ```python
 def largestVariance(self, s: str) -> int:
         letters = set(s)
@@ -62,6 +68,7 @@ def largestVariance(self, s: str) -> int:
 ```
 
 ### [Maximum Array after swapping equal length subarray](https://leetcode.com/problems/maximum-score-of-spliced-array/)
+
 - Kadane's can be used to find the maximum subarray.
 - INTUITION: We are trying to maximum the sum of the subarray after the swap. This is the same as precomputing a cost array for swapping the ith element.
 

@@ -2,14 +2,16 @@
 modified: 2024-12-30T22:24:41-05:00
 ---
 # Queues
+
 ## Applications
 
 ### Simulation Problem
+
 - Use states
 - Separate queues if possible (enter pool, leave pool)
 - Separate states whenever possible (avoid overlapping states that might be used to store the state of multiple items)
 - Iterate the time instead of (separating arrival by state then iterating the queues, keeping track of who has arrived will be difficult)
-	- Multiple arrivals are easily managed this way
+  - Multiple arrivals are easily managed this way
 
 ```python
 def timeTaken(self, arrival: List[int], state: List[int]) -> List[int]:

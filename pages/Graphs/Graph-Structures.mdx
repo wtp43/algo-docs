@@ -4,21 +4,26 @@ modified: 2024-12-30T22:20:20-05:00
 ## Adjacency Matrix
 
 Pros
+
 - Useful for dense graphs with many edges
 - Allows for matrix operations
--  Edge weight lookup is O(1)
-Cons
+- Edge weight lookup is O(1)
+  Cons
 - O($V^2$) space requirement
 - Iterating over all edges takes O($V^2$) time
+
 ## Adjacency List
+
 Pros
+
 - Space efficient for sparse graphs
 - Iterating over all edges
-Cons
+  Cons
 - Edge weight lookup is O(E) although rare in practice
 - Less space efficient for denser graphs (overhead in linked list structure)
 
 ## Edge List
+
 - Unordered list of edges: `[(u1,v1,w1), (u2,v2,w2)]`
 - Seldomly used because of its lack of structure
 
@@ -69,10 +74,12 @@ graph.add_edge(4, 3, 11)
 graph.print_matrix()
 ```
 
-![[Pasted image 20221205181815.png]]
+!\[[Pasted image 20221205181815.png]\]
 
 ## Adjacency list
+
 - Use dictionary and store a set containing values as pairs of (node, weight)
+
 ```python
 from collections import defaultdict
 class Graph:
@@ -139,4 +146,5 @@ print(graph.get_vertice())
 ```
 
 # Related
-[Graph-Theory](/Graphs/Graph-Theory.mdx)
+
+\[[Graph Theory]\]

@@ -2,12 +2,14 @@
 modified: 2024-12-30T22:27:47-05:00
 ---
 # KMP
+
 ## Pattern Matching
 
 ### Maximal Boundaries
 
 - Maximal boundary is longest prefix that is also a suffix
-<CustomCallout type="important" title="important">F is an array of maximal boundaries for every substring `s[0:i] for i in range(len(s))`</CustomCallout>
+
+<CustomCallout type={"important"} title={"important"}>F is an array of maximal boundaries for every substring `s[0:i] for i in range(len(s))`</CustomCallout>
 
 ```python
 def maximum_border_length(w):
@@ -22,6 +24,7 @@ def maximum_border_length(w):
 			f[i] = k # we found the maximal border of w[:i + 1]
 	return f
 ```
+
 ### KMP
 
 - Search t in s
@@ -56,9 +59,13 @@ def kmp(self, s: str) -> str:
 ```
 
 Space/Time Complexity: O(m + n)
+
 ##### Searching for All Occurrences
+
 https://leetcode.com/problems/find-beautiful-indices-in-the-given-array-i/
+
 - Don't return after once match
+
 ### Isomorphic Strings (Mapping)
 
 ```python
