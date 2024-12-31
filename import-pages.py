@@ -57,7 +57,6 @@ def format_md(file_path):
 
 
 def process_file(file_path, docs_dir, attachments_dir):
-    format_md(file_path)
     with open(file_path, "r") as file:
 
         # TODO: file names with ' and callouts including attachments
@@ -66,6 +65,7 @@ def process_file(file_path, docs_dir, attachments_dir):
             backlink = re.search(r"\[\[(.*?)\]\]", lines[i])
             if backlink:
                 pattern = backlink.group(1)
+                print(pattern)
                 pattern = re.sub(r"[ ']", "-", pattern)
                 path = next(
                     (
@@ -108,6 +108,7 @@ def process_file(file_path, docs_dir, attachments_dir):
         file.writelines(lines)
 
     # Change obsidian callouts to react components
+    format_md(file_path)
     with open(file_path, "r") as file:
         # pattern = re.compile(r">(\[!\D+?\])(\n>.+)*")
         reg0 = regex.compile(r"> ?\[!(.+?)\]\+?(.*)(\n>.+)*", regex.MULTILINE)

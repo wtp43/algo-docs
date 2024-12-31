@@ -111,7 +111,7 @@ class Bloom_filter(object):
 
 # Applications
 
-Used as a first layer of filtering. The advantage is that they require constant space. Facebook uses bloom filters to avoid one-hit wonders. One-hit wonders are web objects requested by users just once. Using a bloom filter to detect the second request for a web object and caching it only on its second request prevents on hit wonders from entering the local storage. Using an \[[LRU Cache]\] will remove some older but frequent results from local storage for one-hit wonders, negatively affecting the user experience. Medium uses bloom filters in its recommendation module to avoid showing those posts that the user has already seen.
+[LRU-Cache](/Advanced-Data-Structures/LRU-Cache.mdx)
 
 # Related
 
